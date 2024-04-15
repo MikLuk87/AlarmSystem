@@ -230,7 +230,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 30
+  MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -532,7 +532,6 @@ GameObject:
   - component: {fileID: 793187320}
   - component: {fileID: 793187319}
   - component: {fileID: 793187324}
-  - component: {fileID: 793187325}
   m_Layer: 0
   m_Name: Thief
   m_TagString: Untagged
@@ -668,21 +667,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &793187325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793187318}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3390171e7acc4a4d89ac456a151298c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _currStrength: 0
-  _targetStrength: 0
-  _step: 0
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

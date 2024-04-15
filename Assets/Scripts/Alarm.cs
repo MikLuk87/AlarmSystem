@@ -3,7 +3,7 @@ using UnityEngine;
 public class Alarm : MonoBehaviour
 {
     [SerializeField] private AudioSource _alarm;
-    [SerializeField] private float _step = 0.4f;
+    [SerializeField] private float _step = 0.5f;
 
     private float _mute = 0f;
     private float _maxVolume = 1f;
