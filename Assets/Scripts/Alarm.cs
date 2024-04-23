@@ -1,38 +1,53 @@
+using System.Collections;
 using UnityEngine;
 
 public class Alarm : MonoBehaviour
 {
     [SerializeField] private AudioSource _alarm;
-    [SerializeField] private float _step = 0.5f;
 
-    private float _mute = 0f;
+    private float _step = 1f;
+    private float _delay = 0.05f;
+    private bool _trigger = false;
+    private float _minVolume = 0f;
     private float _maxVolume = 1f;
-    private float _setVolume;
 
-    private void OnTriggerEnter(Collider other)
+    public IEnumerator StartAlarm()
     {
-        if (other.GetComponent<Mover>()) 
+        var wait = new WaitForSeconds(_delay);
+
+        _trigger = true;
+
+        if (_alarm.volume == _minVolume)
         {
             _alarm.Play();
-            _setVolume = _maxVolume;
+            Debug.Log("Start");
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<Mover>())
+        while (_alarm.volume != _maxVolume & _trigger == true)
         {
-            _setVolume = _mute;
+            _alarm.volume = Mathf.MoveTowards(_alarm.volume, _maxVolume, _step * Time.deltaTime);
+
+            yield return wait;
         }
     }
 
-    void Update()
+    public IEnumerator StopAlarm()
     {
-         _alarm.volume = Mathf.MoveTowards(_alarm.volume, _setVolume, _step * Time.deltaTime);
+        var wait = new WaitForSeconds(_delay);
 
-        if (_alarm.volume == _setVolume )
+        _trigger = false;
+
+        while (_alarm.volume != _minVolume & _trigger == false)
+        {
+            _alarm.volume = Mathf.MoveTowards(_alarm.volume, _minVolume, _step * Time.deltaTime);
+
+            yield return wait;
+        }
+
+        if (_alarm.volume == _minVolume)
         {
             _alarm.Stop();
+            Debug.Log("Stop");
         }
     }
 }
