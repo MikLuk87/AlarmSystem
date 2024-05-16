@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Controller : MonoBehaviour
+public class Trigger : MonoBehaviour
 {
     [SerializeField] private Alarm _alarm;
 
@@ -8,7 +8,7 @@ public class Controller : MonoBehaviour
     {
         if (other.TryGetComponent(out Mover mover))
         {
-            StartCoroutine(_alarm.StartAlarm());
+            _alarm.StartAlarm();
         }
     }
 
@@ -16,7 +16,7 @@ public class Controller : MonoBehaviour
     {
         if (other.TryGetComponent(out Mover mover))
         {
-            StartCoroutine(_alarm.StopAlarm());
+            _alarm.StopAlarm();
         }
     }
 }

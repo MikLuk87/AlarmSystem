@@ -5,49 +5,66 @@ public class Alarm : MonoBehaviour
 {
     [SerializeField] private AudioSource _alarm;
 
+    private Coroutine _coroutine;
+
+    private float _setVolume = 0f;
     private float _step = 1f;
-    private float _delay = 0.05f;
-    private bool _trigger = false;
-    private float _minVolume = 0f;
-    private float _maxVolume = 1f;
+    private float _delay = 0.1f;
 
-    public IEnumerator StartAlarm()
+    private bool _isPlaying = false;
+    private bool _isStopping = false;
+
+    public void StartAlarm()
     {
-        var wait = new WaitForSeconds(_delay);
+        _setVolume = 1f;
 
-        _trigger = true;
+        _isStopping = false;
 
-        if (_alarm.volume == _minVolume)
+        if (_isPlaying == false)
         {
+            _isPlaying = true;
+            Debug.Log("StartAlarm");
             _alarm.Play();
-            Debug.Log("Start");
         }
 
-        while (_alarm.volume != _maxVolume & _trigger == true)
+        if (_coroutine == null)
         {
-            _alarm.volume = Mathf.MoveTowards(_alarm.volume, _maxVolume, _step * Time.deltaTime);
-
-            yield return wait;
+            _coroutine = StartCoroutine(Smoother());
         }
     }
 
-    public IEnumerator StopAlarm()
+    public void StopAlarm()
+    {
+        _setVolume = 0f;
+
+        _isStopping = true;
+
+        if (_coroutine == null)
+        {
+            _coroutine = StartCoroutine(Smoother());
+        }
+    }
+
+    private IEnumerator Smoother()
     {
         var wait = new WaitForSeconds(_delay);
 
-        _trigger = false;
-
-        while (_alarm.volume != _minVolume & _trigger == false)
+        while (_alarm.volume != _setVolume)
         {
-            _alarm.volume = Mathf.MoveTowards(_alarm.volume, _minVolume, _step * Time.deltaTime);
+            _alarm.volume = Mathf.MoveTowards(_alarm.volume, _setVolume, _step * Time.deltaTime);
 
             yield return wait;
         }
 
-        if (_alarm.volume == _minVolume)
+        Debug.Log("StopCoroutine");
+        StopCoroutine(_coroutine);
+        _coroutine = null;
+
+        if (_isStopping)
         {
+            _isPlaying = false;
+            Debug.Log("StopAlarm");
             _alarm.Stop();
-            Debug.Log("Stop");
         }
     }
 }

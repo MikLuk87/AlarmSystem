@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f94c14d6b38479439ac84e30849a91e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Slider: -7.5
+  Slider: -9.75
 --- !u!136 &793187320
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -611,8 +611,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _alarm: {fileID: 1532229824}
-  _step: 0.1
-  SetVolume: 0
 --- !u!65 &1532229817
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -646,8 +644,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde3cbfdfad688c4c9159f088ae555f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxVolume: 1
-  _minVolume: 0
   _alarm: {fileID: 1532229816}
 --- !u!82 &1532229824
 AudioSource:
