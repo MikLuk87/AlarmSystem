@@ -23,7 +23,6 @@ public class Alarm : MonoBehaviour
         if (_isPlaying == false)
         {
             _isPlaying = true;
-            Debug.Log("StartAlarm");
             _alarm.Play();
         }
 
@@ -56,14 +55,11 @@ public class Alarm : MonoBehaviour
             yield return wait;
         }
 
-        Debug.Log("StopCoroutine");
-        StopCoroutine(_coroutine);
         _coroutine = null;
 
         if (_isStopping)
         {
             _isPlaying = false;
-            Debug.Log("StopAlarm");
             _alarm.Stop();
         }
     }
